@@ -1,0 +1,24 @@
+---
+- name: Install useful system utilities
+  package: name={{item}} state=present
+  with_items:
+  # ls Open Files, lets you see what files are open, by what processes and user
+  - lsof
+  # Terminal multiplexer
+  - screen
+  # dwimsey's preferred shell, instead of bash
+  - zsh
+  # Java OpenJDK 8
+#  - java-1.8.0-openjdk
+  # Apache Maven
+  - maven
+  # MySQL client, we should probably switch this to MariaDB
+#  - mysql
+  # xauth is required for SSH X11 display forwarding, so you can run intellij in the VM and display it on your local desktop without using the VirtualBox window
+  - xauth
+- name: Install Unity desktop environment
+  apt: pkg=ubuntu-desktop state=present
+  when: ansible_distribution == 'Ubuntu'
+- name: Install KDE desktop environment
+  yum: name="@^gnome-desktop-environment" state=present
+  when: ansible_distribution == 'rhel fedora'
