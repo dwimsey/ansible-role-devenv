@@ -160,9 +160,9 @@ galaxy_info:
   #  - 11SP4
   #  - 12
   #  - 12SP1
-  - name: GenericLinux
-    versions:
-    - all
+   - name: GenericLinux
+     versions:
+     - all
   #  - any
   #- name: NXOS
   #  versions:
