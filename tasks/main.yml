@@ -1,4 +1,13 @@
 ---
+- name: Add Java 8 PPA for Ubuntu 12 and 14
+  apt_repository: repo='ppa:openjdk-r/ppa'
+  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_release == 'trusty' or ansible_distribution_release == 'precise')
+
+# Run the equivalent of "apt-get update" as a separate step
+- name: Update apt-get cache ...
+  apt: update_cache=yes
+  when: ansible_distribution == 'Ubuntu'
+
 - name: Install useful system utilities
   package: name={{item}} state=present
   with_items:
@@ -8,17 +17,21 @@
   - screen
   # dwimsey's preferred shell, instead of bash
   - zsh
-  # Java OpenJDK 8
-#  - java-1.8.0-openjdk
-  # Apache Maven
-  - maven
-  # MySQL client, we should probably switch this to MariaDB
-#  - mysql
   # xauth is required for SSH X11 display forwarding, so you can run intellij in the VM and display it on your local desktop without using the VirtualBox window
   - xauth
-- name: Install Unity desktop environment
-  apt: pkg=ubuntu-desktop state=present
-  when: ansible_distribution == 'Ubuntu'
-- name: Install KDE desktop environment
-  yum: name="@^gnome-desktop-environment" state=present
+  # MySQL client, we should probably switch this to MariaDB
+
+  # Java OpenJDK 8
+- name: Install OpenJDK 8 (RHEL/yum)
+  package: name=java-1.8.0-openjdk state=present
   when: ansible_distribution == 'rhel fedora'
+
+- name: Install OpenJDK 8 (Debian/apt-get)
+  package: name=openjdk-8-jdk state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Apache maven
+  package: name={{item}} state=present
+  with_items:
+  # Apache Maven
+  - maven
