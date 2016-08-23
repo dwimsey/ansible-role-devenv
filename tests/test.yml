@@ -2,4 +2,4 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - dwimsey.devenv
+    - ansible-role-devenv
