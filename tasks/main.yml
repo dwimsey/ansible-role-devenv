@@ -1,0 +1,8 @@
+---
+- name: Install Linux specific packages
+  include: main_linux.yml
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'rhel fedora'
+
+- name: Install Mac OS specific packages
+  include: main_osx.yml
+  when: ansible_distribution == 'MacOSX'

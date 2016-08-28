@@ -21,7 +21,6 @@
   - zsh
   # xauth is required for SSH X11 display forwarding, so you can run intellij in the VM and display it on your local desktop without using the VirtualBox window
   - xauth
-  # MySQL client, we should probably switch this to MariaDB
 
   # Java OpenJDK 8
 - name: Install OpenJDK 8 (RHEL/yum)

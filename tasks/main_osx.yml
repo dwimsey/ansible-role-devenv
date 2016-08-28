@@ -1,0 +1,8 @@
+---
+- hosts: all
+  roles:
+    - { role: geerlingguy.homebrew }
+
+  tasks:
+  - name: Install OpenJDK 8 (Debian/apt-get)
+    package: name=openjdk-8-jdk state=present
