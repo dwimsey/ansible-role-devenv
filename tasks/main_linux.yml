@@ -3,6 +3,9 @@
   apt_repository: repo='ppa:openjdk-r/ppa'
   when: ansible_distribution == 'Ubuntu' and (ansible_distribution_release == 'trusty' or ansible_distribution_release == 'precise')
 
+- name: Adding existing user '{{ user }}' to group sudo and vboxsf
+  user: name='{{ user }}' groups=sudo,vboxsf append=yes
+
 # Run the equivalent of "apt-get update" as a separate step
 - name: Update apt-get cache ...
   apt: update_cache=yes
